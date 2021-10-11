@@ -1,0 +1,16 @@
+.app {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(to left, rgb(255, 0, 55), blue);
+  height: 100vh;
+}
+.app__body {
+  display: flex;
+  background: rgb(198, 202, 247);
+  /* margin-top: -50px; */
+  height: 90vh;
+  width: 90vw;
+  box-shadow: -1px 4px 50px -6px rgb(68, 70, 78);
+  border-radius: 20px;
+  padding: 1.2rem;
+}
