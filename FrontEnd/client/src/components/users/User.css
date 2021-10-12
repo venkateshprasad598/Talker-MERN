@@ -5,6 +5,20 @@
   background-color: white;
   border-radius: 20px;
   box-shadow: -1px 4px 20px -6px rgb(122, 123, 128);
-  padding: 1rem;
   box-sizing: border-box;
+}
+.user__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.user__headerRight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 10vw;
+}
+.user__chat {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
