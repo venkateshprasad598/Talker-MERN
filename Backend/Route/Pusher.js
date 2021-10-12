@@ -26,7 +26,7 @@ db.once("open", () => {
       const messageDetails = change.fullDocument;
 
       //third parameter is important, for each insert watch your postman debig console
-      pusher.trigger("mes", "ins", {
+      pusher.trigger("messages", "inserted", {
         name: messageDetails.name,
         message: messageDetails.message,
       });
