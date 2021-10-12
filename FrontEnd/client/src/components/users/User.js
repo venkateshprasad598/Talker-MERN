@@ -26,15 +26,6 @@ function User() {
       <div className="user__chat">
         <SidebarChat />
         <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
       </div>
     </div>
   );
