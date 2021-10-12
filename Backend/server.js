@@ -2,17 +2,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const messages = require("./Route/route");
+// const Pusher = require("pusher");
 // App Config
 const app = express();
 const port = process.env.PORT || 5000;
 
-const pusher = new Pusher({
-  appId: "1280776",
-  key: "de50ab2bce039e10f10a",
-  secret: "94c3a60dcee1e7f220b9",
-  cluster: "ap2",
-  useTLS: true,
-});
+//Pusher and change stream
+require("./Route/Pusher");
 
 //Middleware
 app.use(express.json());
