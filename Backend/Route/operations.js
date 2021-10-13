@@ -34,7 +34,7 @@ const postNewMessage = async (req, res) => {
         runValidators: true,
       }
     );
-    res.status(200).json({ message });
+    res.status(200).json(message);
   } catch (err) {
     res.status(501).json("Error");
   }
@@ -69,11 +69,27 @@ const getConversationList = async (req, res) => {
 const actualConversation = async (req, res) => {
   try {
     const { id } = req.params;
-    const message = await Message.findOne({ _id: id });
+    const message = await Message.find({ _id: id });
     if (!message) {
       return res.status(404).json("No message Found");
     }
-    res.status(200).json({ message });
+    res.status(200).json(message);
+  } catch (err) {
+    res.status(500).json("ERROR!!");
+  }
+};
+
+//Displaying last conversation message on the sidebar Chat
+const lastConversation = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const message = await Message.find({ _id: id });
+
+    let convData = message[0].conversation;
+    convData.sort((b, a) => {
+      return a.timestamp - b.timestamp;
+    });
+    res.status(200).json(convData[0]);
   } catch (err) {
     res.status(500).json("ERROR!!");
   }
@@ -84,4 +100,5 @@ module.exports = {
   postNewMessage,
   getConversationList,
   actualConversation,
+  lastConversation,
 };
