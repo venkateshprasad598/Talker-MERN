@@ -4,7 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Avatar, IconButton } from "@material-ui/core";
 import AddIcon from "@mui/icons-material/Add";
 import PersonIcon from "@mui/icons-material/Person";
-import SidebarChat from "../sidebarChat/SidebarChat";
+import SidebarChat from "../SidebarChat";
+// import SidebarChat from "./sidebarChat";
 
 function User() {
   return (
@@ -24,7 +25,6 @@ function User() {
         </div>
       </div>
       <div className="user__chat">
-        <SidebarChat />
         <SidebarChat />
       </div>
     </div>

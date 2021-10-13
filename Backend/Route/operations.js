@@ -54,14 +54,14 @@ const getConversationList = async (req, res) => {
       const conversationData = {
         id: convo._id,
         name: convo.chatName,
-        timestamp: convo.conversation[0].timestamp,
+        // timestamp: convo.conversation[0].timestamp,
       };
       conversations.push(conversationData);
     });
 
     res.status(200).json(conversations);
   } catch (err) {
-    console.log("ERROR");
+    console.log(err);
   }
 };
 

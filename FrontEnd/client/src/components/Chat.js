@@ -4,18 +4,6 @@ import "./Chat.css";
 import axios from "./axios";
 
 const Chat = () => {
-  const getNames = async () => {
-    try {
-      const data = await axios.get("/api/v1/messages/new");
-      console.log(data);
-      // console.log("okay wait letMeCheck");
-    } catch (err) {
-      console.log("Error");
-    }
-  };
-  useEffect(() => {
-    getNames();
-  }, []);
   return (
     <div className="chat">
       <div className="chat__header">
