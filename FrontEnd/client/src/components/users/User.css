@@ -22,3 +22,31 @@
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  z-index: -1;
+}
+/* OPEN/CLOSE MODAL */
+.show-modal {
+  visibility: visible;
+  z-index: 10;
+}
+.modal-container {
+  background: white;
+  border-radius: 1rem;
+  width: 90vw;
+  height: 30vh;
+  max-width: 620px;
+  text-align: center;
+  display: grid;
+  place-items: center;
+}
