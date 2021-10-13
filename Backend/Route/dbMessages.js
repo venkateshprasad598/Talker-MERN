@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const ChatSchema = mongoose.Schema({
   chatName: String,
+  timestamp: String,
   conversation: [
     {
       message: String,

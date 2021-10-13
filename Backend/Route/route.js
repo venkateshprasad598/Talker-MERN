@@ -7,11 +7,14 @@ const {
   getMessages,
   postConversation,
   postNewMessage,
+  getConversationList,
+  actualConversation,
 } = require("./operations");
 
 //https methos
 router.get("/", getMessages);
 router.post("/new/conversation", postConversation);
 router.post("/new/message/:id", postNewMessage);
-
+router.get("/get/conversationList", getConversationList);
+router.get("/get/conversation/:id", actualConversation);
 module.exports = router;
