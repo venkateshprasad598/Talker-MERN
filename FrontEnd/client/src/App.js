@@ -1,5 +1,5 @@
 import "./App.css";
-import User from "./components/users/User";
+import User from "./components/User";
 import Chat from "./components/Chat";
 // import { useEffect } from "react";
 // import Pusher from "pusher-js";

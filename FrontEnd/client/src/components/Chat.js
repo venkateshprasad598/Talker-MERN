@@ -4,13 +4,14 @@ import "./Chat.css";
 import axios from "./axios";
 import { useSelector } from "react-redux";
 
-// import
 const Chat = () => {
-  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const chatId = useSelector((state) => state.chatId);
-  console.log(input);
 
+  //State Management Redux
+  const [messages, setMessages] = useState([]);
+  const chatId = useSelector((state) => state.chatId);
+
+  // Displaying all chat of the actual conversation
   console.log(chatId);
   const getConversation = async (num) => {
     try {
@@ -27,11 +28,13 @@ const Chat = () => {
     getConversation(chatId);
   }, [chatId]);
 
+  //Entering new Message
   const handleChange = (e) => {
     const { value } = e.target;
     setInput(value);
   };
 
+  // Sending new message to the respective chat
   const sendMessage = async (e, num) => {
     e.preventDefault();
     try {
@@ -39,7 +42,7 @@ const Chat = () => {
         message: input,
         timestamp: Date.now(),
       });
-      setInput("")
+      setInput("");
     } catch (err) {
       console.log(err);
     }

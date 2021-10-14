@@ -5,21 +5,40 @@ import { Avatar, IconButton } from "@material-ui/core";
 import AddIcon from "@mui/icons-material/Add";
 import PersonIcon from "@mui/icons-material/Person";
 import SidebarChat from "./SidebarChat";
-// import SidebarChat from "./sidebarChat";
-import axios from "./";
+import axios from "./axios";
 
 function User() {
   const [isModalOpen, setModel] = useState(false);
   const [newRoom, setNewRoom] = useState("");
   const [welcomeMsg, setWelcomeMsg] = useState("");
+  const [isEntered, setIsEntered] = useState(false);
 
+  // Adding new conversation into the user Chat
   const addChat = async (e) => {
+    e.preventDefault();
     if (newRoom && welcomeMsg) {
       let chatId = "";
+
+      // Posting new conversation
       const res = await axios.post("/new/conversation", {
         chatName: newRoom,
+        timestamp: Date.now(),
       });
-      console.log(res);
+
+      chatId = res.data._id;
+      //Adding welcome Message to the chat
+      const newMessage = await axios.post(`/new/message/${chatId}`, {
+        message: welcomeMsg,
+        timestamp: Date.now(),
+        user: {},
+      });
+      setModel(!isModalOpen);
+    } else {
+      // Please enter all the details popup message
+      setIsEntered(true);
+      setTimeout(() => {
+        setIsEntered(false);
+      }, 1000);
     }
   };
   return (
@@ -65,8 +84,11 @@ function User() {
             <button type="submit" onClick={addChat}>
               Add
             </button>
+            {isEntered && <h3>Please Enter All the details</h3>}
+
             <button
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 setModel(!isModalOpen);
               }}
             >
