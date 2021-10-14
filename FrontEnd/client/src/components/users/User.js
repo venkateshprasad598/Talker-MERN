@@ -8,7 +8,7 @@ import SidebarChat from "../SidebarChat";
 // import SidebarChat from "./sidebarChat";
 
 function User() {
-  const [isModalOpen, setModel] = useState(true);
+  const [isModalOpen, setModel] = useState(false);
 
   return (
     <div className="user">
@@ -18,12 +18,12 @@ function User() {
           <IconButton>
             <SearchIcon />
           </IconButton>
-          <IconButton>
-            <AddIcon
-              onClick={() => {
-                setModel(!isModalOpen);
-              }}
-            />
+          <IconButton
+            onClick={() => {
+              setModel(!isModalOpen);
+            }}
+          >
+            <AddIcon />
           </IconButton>
           <IconButton>
             <PersonIcon />

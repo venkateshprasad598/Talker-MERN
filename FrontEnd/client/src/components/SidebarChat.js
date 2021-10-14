@@ -6,7 +6,8 @@ import SidebarConvo from "./SidebarConvo";
 
 const SidebarChat = () => {
   const [chats, setChats] = useState([]);
-  console.log(chats);
+
+  // Getting All the Conversations
   const getChats = async () => {
     try {
       const data = await axios.get("get/conversationList");
@@ -25,16 +26,11 @@ const SidebarChat = () => {
     <div className="sidebarChat">
       <Avatar />
       <div className="sidebarChat__info">
-        {/* <h3>RooM Name</h3>
-        <p>This is going to be the last message</p>
-        <span>
-          Last Seen : {new Date().getHours() + ":" + new Date().getMinutes()}
-        </span> */}
+        {chats.map((data) => {
+          const { id, name } = data;
+          return <SidebarConvo key={id} id={id} name={name} />;
+        })}
       </div>
-      {chats.map((data) => {
-        const { id, name } = data;
-        return <SidebarConvo key={id} id={id} name={name} />;
-      })}
     </div>
   );
 };

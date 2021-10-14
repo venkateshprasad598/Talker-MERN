@@ -1,0 +1,4 @@
+.sidebarConvo {
+  display: flex;
+  flex-direction: column;
+}
