@@ -54,6 +54,8 @@ const getConversationList = async (req, res) => {
       const conversationData = {
         id: convo._id,
         name: convo.chatName,
+        timeStamp: convo.timestamp,
+        image: convo.image,
         // timestamp: convo.conversation[0].timestamp,
       };
       conversations.push(conversationData);

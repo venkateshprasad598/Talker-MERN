@@ -25,8 +25,8 @@ const SidebarChat = () => {
   return (
     <div>
       {chats.map((data) => {
-        const { id, name } = data;
-        return <SidebarConvo key={id} id={id} name={name} />;
+        const { id, name, image } = data;
+        return <SidebarConvo key={id} id={id} name={name} image={image} />;
       })}
     </div>
   );

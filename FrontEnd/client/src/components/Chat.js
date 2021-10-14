@@ -19,9 +19,6 @@ const Chat = () => {
       const newMessages = res.data[0].conversation;
       const header = res.data[0];
       setHeaderMsg(header);
-      console.log(header);
-      console.log(res);
-      // console.log(newMessages);
       setMessages(newMessages);
     } catch (err) {
       console.log(err);
@@ -54,7 +51,7 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="chat__header">
-        <Avatar />
+        <Avatar src={headerMsg.image} />
         <div className="chat__headerInfo">
           <h3>{headerMsg.chatName}</h3>
           <p>

@@ -4,25 +4,22 @@ import axios from "./axios";
 import { useDispatch } from "react-redux";
 import { Avatar } from "@material-ui/core";
 
-const SidebarConvo = ({ id, name }) => {
+const SidebarConvo = ({ id, name, image }) => {
   const dispatch = useDispatch();
   const [lastMsg, setLastMsg] = useState("");
   const [lastTimestamp, setlastTimestamp] = useState("");
   const [lastPhoto, setlastPhoto] = useState("");
-  console.log(lastMsg);
   //Getting last message, photo and tiestamp of the user
   const getSidebarElement = async () => {
     try {
       const res = await axios.get(`/get/lastMessage/${id}`);
-      // console.log(res);
       setLastMsg(res.data.message);
       setlastTimestamp(res.data.timestamp);
-      // setlastPhoto(res.data.user.photo);
+      // setlastPhoto(res.data.user.photo)
     } catch (err) {
       console.log(err);
     }
   };
-
   useEffect(() => {
     getSidebarElement();
   }, []);
@@ -33,7 +30,7 @@ const SidebarConvo = ({ id, name }) => {
         className="sidebarConvo"
         onClick={() => dispatch({ type: "CHATID", id: id })}
       >
-        <Avatar />
+        <Avatar src={image} />
         <div className="sidebarConvo__info">
           <h4>{name}</h4>
           <p>
