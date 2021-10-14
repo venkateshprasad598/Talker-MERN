@@ -9,15 +9,19 @@ const Chat = () => {
 
   //State Management Redux
   const [messages, setMessages] = useState([]);
+  const [headerMsg, setHeaderMsg] = useState([]);
   const chatId = useSelector((state) => state.chatId);
 
   // Displaying all chat of the actual conversation
-  console.log(chatId);
   const getConversation = async (num) => {
     try {
       const res = await axios.get(`get/conversation/${num}`);
       const newMessages = res.data[0].conversation;
-      console.log(newMessages);
+      const header = res.data[0];
+      setHeaderMsg(header);
+      console.log(header);
+      console.log(res);
+      // console.log(newMessages);
       setMessages(newMessages);
     } catch (err) {
       console.log(err);
@@ -52,8 +56,11 @@ const Chat = () => {
       <div className="chat__header">
         <Avatar />
         <div className="chat__headerInfo">
-          <h3>Room Name</h3>
-          <p>Last Seen</p>
+          <h3>{headerMsg.chatName}</h3>
+          <p>
+            Last Active :
+            {new Date(parseInt(headerMsg.timestamp)).toLocaleTimeString()}{" "}
+          </p>
         </div>
       </div>
 
@@ -61,24 +68,15 @@ const Chat = () => {
         {messages.map((data) => {
           return (
             <p className="chat__message" key={data._id}>
-              {/* <span className="chat__name">Venkatesh Prasad</span> */}
+              {/* <span className="chat__name">{messages.name}</span> */}
               {data.message}
-              <span className="chat__timestamp">{new Date().getMinutes()}</span>
+              <span className="chat__timestamp">
+                {new Date(parseInt(data.timestamp)).toLocaleTimeString()}
+              </span>
             </p>
           );
         })}
       </div>
-
-      {/* <div className="chat__body">
-        <p className="chat__message">
-          <span className="chat__name">Venkatesh Prasad</span>
-          This is Message Lorem, ipsum dolor sit amet consectetur adipisicing
-          elit. Sapiente, aliquid. Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Soluta, facilis?
-          <span className="chat__timestamp">{new Date().toUTCString()}</span>
-        </p>
-      </div> */}
-
       <div className="chat__footer">
         <form>
           <input

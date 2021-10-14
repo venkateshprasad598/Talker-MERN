@@ -1,4 +1,24 @@
 .sidebarConvo {
   display: flex;
-  flex-direction: column;
+  padding: 0.6rem 1rem;
+}
+
+.sidebarConvo:hover {
+  background-color: rgb(152, 170, 248);
+}
+.sidebarConvo__info {
+  margin-left: 0.8rem;
+}
+.sidebarConvo__info > p {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgb(58, 58, 58);
+}
+.sidebarConvo__info > h4 {
+  margin-bottom: 0.3rem;
+}
+.underline {
+  height: 1px;
+  background-color: rgb(231, 231, 231);
+  width: 100%;
 }

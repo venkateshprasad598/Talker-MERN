@@ -2,15 +2,11 @@ const mongoose = require("mongoose");
 const ChatSchema = mongoose.Schema({
   chatName: String,
   timestamp: String,
+  image: String,
   conversation: [
     {
       message: String,
       timestamp: String,
-      user: {
-        displayName: String,
-        photo: String,
-        uid: String,
-      },
     },
   ],
 });

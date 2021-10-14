@@ -23,14 +23,11 @@ const SidebarChat = () => {
   }, []);
 
   return (
-    <div className="sidebarChat">
-      <Avatar />
-      <div className="sidebarChat__info">
-        {chats.map((data) => {
-          const { id, name } = data;
-          return <SidebarConvo key={id} id={id} name={name} />;
-        })}
-      </div>
+    <div>
+      {chats.map((data) => {
+        const { id, name } = data;
+        return <SidebarConvo key={id} id={id} name={name} />;
+      })}
     </div>
   );
 };
