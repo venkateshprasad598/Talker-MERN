@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./SidebarConvo.css";
 import axios from "./axios";
+import { useDispatch } from "react-redux";
 
 const SidebarConvo = ({ id, name }) => {
+  const dispatch = useDispatch();
   const [lastMsg, setLastMsg] = useState("");
   const [lastTimestamp, setlastTimestamp] = useState("");
   const [lastPhoto, setlastPhoto] = useState("");
@@ -25,7 +27,10 @@ const SidebarConvo = ({ id, name }) => {
   }, []);
 
   return (
-    <div className="sidebarConvo">
+    <div
+      className="sidebarConvo"
+      onClick={() => dispatch({ type: "CHATID", id: id })}
+    >
       <h3>{name}</h3>
       <p>{lastMsg}</p>
       <p>LastSeen : {lastTimestamp}</p>

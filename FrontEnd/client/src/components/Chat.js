@@ -1,9 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
 import "./Chat.css";
 import axios from "./axios";
+import { useSelector } from "react-redux";
 
+// import
 const Chat = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const chatId = useSelector((state) => state.chatId);
+  console.log(input);
+
+  console.log(chatId);
+  const getConversation = async (num) => {
+    try {
+      const res = await axios.get(`get/conversation/${num}`);
+      const newMessages = res.data[0].conversation;
+      console.log(newMessages);
+      setMessages(newMessages);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getConversation(chatId);
+  }, [chatId]);
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setInput(value);
+  };
+
+  const sendMessage = async (e, num) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(`/new/message/${num}`, {
+        message: input,
+        timestamp: Date.now(),
+      });
+      setInput("")
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="chat">
       <div className="chat__header">
@@ -15,6 +55,18 @@ const Chat = () => {
       </div>
 
       <div className="chat__body">
+        {messages.map((data) => {
+          return (
+            <p className="chat__message" key={data._id}>
+              {/* <span className="chat__name">Venkatesh Prasad</span> */}
+              {data.message}
+              <span className="chat__timestamp">{new Date().getMinutes()}</span>
+            </p>
+          );
+        })}
+      </div>
+
+      {/* <div className="chat__body">
         <p className="chat__message">
           <span className="chat__name">Venkatesh Prasad</span>
           This is Message Lorem, ipsum dolor sit amet consectetur adipisicing
@@ -22,12 +74,19 @@ const Chat = () => {
           adipisicing elit. Soluta, facilis?
           <span className="chat__timestamp">{new Date().toUTCString()}</span>
         </p>
-      </div>
+      </div> */}
 
       <div className="chat__footer">
         <form>
-          <input type="text" placeholder="Type a message" />
-          <button type="submit">Submit</button>
+          <input
+            type="text"
+            placeholder="Type a message"
+            value={input}
+            onChange={handleChange}
+          />
+          <button type="submit" onClick={(e) => sendMessage(e, chatId)}>
+            Submit
+          </button>
         </form>
       </div>
     </div>
