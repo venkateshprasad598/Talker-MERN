@@ -19,11 +19,10 @@
   min-width: 10vw;
 }
 .user__chat {
-  overflow-x: hidden;
   overflow-y: scroll;
 }
 
-.modal-overlay {
+.modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -35,18 +34,96 @@
   visibility: hidden;
   z-index: -1;
 }
-/* OPEN/CLOSE MODAL */
-.show-modal {
+
+.show__modal {
   visibility: visible;
   z-index: 10;
 }
-.modal-container {
-  background: white;
+.modal__container {
+  background: rgb(245, 245, 68);
   border-radius: 1rem;
   width: 90vw;
   height: 30vh;
-  max-width: 620px;
+  max-width: 500px;
   text-align: center;
   display: grid;
   place-items: center;
+  padding: 3rem 3rem;
+  position: relative;
+}
+
+.modal__container > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__container > form > input {
+  padding: 0.5rem;
+  border: 2px solid black;
+  outline-width: 0;
+  box-shadow: 3px 3px 1px 1px black;
+}
+.newRoom {
+  margin-bottom: 1rem;
+}
+.addBtn {
+  margin-top: 1rem;
+  background: white;
+  border: 2px solid black;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3rem 1rem;
+  box-shadow: 3px 3px 1px 1px black;
+  margin-bottom: 1rem;
+}
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.userName__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  z-index: -1;
+}
+
+.show__userName {
+  visibility: visible;
+  z-index: 10;
+}
+.modal__userName {
+  background: rgb(245, 245, 68);
+  border-radius: 1rem;
+  width: 90vw;
+  height: 30vh;
+  max-width: 500px;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  padding: 3rem 3rem;
+  position: relative;
+}
+
+.userName__container > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.userName__container > form > input {
+  padding: 0.5rem;
+  border: 2px solid black;
+  outline-width: 0;
+  box-shadow: 3px 3px 1px 1px black;
 }

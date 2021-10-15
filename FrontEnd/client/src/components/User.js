@@ -6,12 +6,23 @@ import AddIcon from "@mui/icons-material/Add";
 import PersonIcon from "@mui/icons-material/Person";
 import SidebarChat from "./SidebarChat";
 import axios from "./axios";
+import { useDispatch, useSelector } from "react-redux";
+import CloseIcon from "@mui/icons-material/Close";
 
 function User() {
   const [isModalOpen, setModel] = useState(false);
+  const [isUserName, setUserName] = useState(true);
   const [newRoom, setNewRoom] = useState("");
   const [welcomeMsg, setWelcomeMsg] = useState("");
   const [isEntered, setIsEntered] = useState(false);
+
+  //redux
+  const addRealTime = useSelector((state) => state.isAddRealTime);
+  const addDispatch = useDispatch();
+  console.log(addRealTime);
+
+  const currentUserName = useSelector((state) => state.userName);
+  const userDispatch = useDispatch();
 
   //Adding images
   const image = [
@@ -47,6 +58,7 @@ function User() {
         timestamp: Date.now(),
       });
       setModel(!isModalOpen);
+      addDispatch({ type: "REALTIMEADD", add: !addRealTime });
     } else {
       // Please enter all the details popup message
       setIsEntered(true);
@@ -70,7 +82,12 @@ function User() {
           >
             <AddIcon />
           </IconButton>
-          <IconButton>
+          <IconButton
+            PersonIcon
+            onClick={() => {
+              setUserName(!isUserName);
+            }}
+          >
             <PersonIcon />
           </IconButton>
         </div>
@@ -78,36 +95,67 @@ function User() {
 
       <div
         className={`${
-          isModalOpen ? "modal-overlay show-modal" : "modal-overlay"
+          isModalOpen ? "modal__overlay show__modal" : "modal__overlay"
         }`}
       >
-        <div className="modal-container">
+        <div className="modal__container">
           <form action="POST">
             <input
               type="text"
-              placeholder="New Room"
+              placeholder="New Room Name"
               value={newRoom}
               onChange={(e) => setNewRoom(e.target.value)}
+              className="newRoom"
             />
             <input
               type="text"
               placeholder="Welcome Message"
               value={welcomeMsg}
               onChange={(e) => setWelcomeMsg(e.target.value)}
+              className="welcomeMessage"
             />
-            <button type="submit" onClick={addChat}>
+            <button type="submit" onClick={addChat} className="addBtn">
               Add
             </button>
-            {isEntered && <h3>Please Enter All the details</h3>}
+            {isEntered && <p>Please Enter All the details</p>}
 
-            <button
+            <CloseIcon
               onClick={(e) => {
                 e.preventDefault();
                 setModel(!isModalOpen);
               }}
-            >
-              Close
+              className="closeBtn"
+            />
+          </form>
+        </div>
+      </div>
+      <div
+        className={`${
+          isUserName ? "modal__overlay show__modal" : "modal__overlay"
+        }`}
+      >
+        <div className="modal__container">
+          <form action="POST">
+            <input
+              type="text"
+              placeholder="Enter Your Name"
+              className="newRoom"
+              value={currentUserName}
+              onChange={(e) =>
+                userDispatch({ type: "USERNAME", name: e.target.value })
+              }
+            />
+            <button type="submit" className="addBtn">
+              Let's Get Started
             </button>
+            {isEntered && <p>Required!!</p>}
+            <CloseIcon
+              onClick={(e) => {
+                e.preventDefault();
+                setUserName(!isUserName);
+              }}
+              className="closeBtn"
+            />
           </form>
         </div>
       </div>

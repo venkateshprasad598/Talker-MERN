@@ -7,6 +7,7 @@ const ChatSchema = mongoose.Schema({
     {
       message: String,
       timestamp: String,
+      user: String,
     },
   ],
 });

@@ -9,16 +9,19 @@
 .sidebarConvo__info {
   margin-left: 0.8rem;
 }
+.sidebarConvo__info > h4 {
+  color: rgb(100, 98, 98);
+}
 .sidebarConvo__info > p {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 500;
-  color: rgb(58, 58, 58);
+  color: rgb(129, 129, 129);
 }
 .sidebarConvo__info > h4 {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.1rem;
 }
 .underline {
-  height: 1px;
-  background-color: rgb(231, 231, 231);
+  height: 0.5px;
+  background-color: rgb(247, 244, 244);
   width: 100%;
 }

@@ -3,15 +3,25 @@ import React, { useEffect, useState } from "react";
 import "./sidebarChat.css";
 import axios from "./axios";
 import SidebarConvo from "./SidebarConvo";
+import { useDispatch, useSelector } from "react-redux";
 
 const SidebarChat = () => {
   const [chats, setChats] = useState([]);
+  //Redux RealTime
+  const addRealTime = useSelector((state) => state.isAddRealTime);
+
+  //Assingin Chat ID to the redux ChatID
+  const chatIdDispatch = useDispatch();
 
   // Getting All the Conversations
   const getChats = async () => {
     try {
       const data = await axios.get("get/conversationList");
       console.log(data.data);
+      // console.log(data.data[0].id);
+      const newId = data.data[0].id;
+      //***************************************************** */
+      // chatIdDispatch({ type: "ChangeChatId", newChatId: newId });
       setChats(data.data);
     } catch (err) {
       console.log(err);
@@ -20,7 +30,7 @@ const SidebarChat = () => {
 
   useEffect(() => {
     getChats();
-  }, []);
+  }, [addRealTime]);
 
   return (
     <div>

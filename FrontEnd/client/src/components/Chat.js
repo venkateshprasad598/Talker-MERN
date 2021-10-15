@@ -2,32 +2,37 @@ import React, { useEffect, useRef, useState } from "react";
 import { Avatar } from "@mui/material";
 import "./Chat.css";
 import axios from "./axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import WelcomBanner from "./WelcomBanner";
 
 const Chat = () => {
   const [input, setInput] = useState("");
 
-  //State Management Redux
   const [messages, setMessages] = useState([]);
   const [headerMsg, setHeaderMsg] = useState([]);
-  const [isMsgRealTime, setRealTime] = useState(false);
+
+  //UserName
+  const [userName, setUserName] = useState("");
+
+  //State Management Redux
   const chatId = useSelector((state) => state.chatId);
 
-  const inputRef = useRef();
-  //Focusing on the last message
-  useEffect(() => {
-    // inputRef.current.focus();
-    console.log(inputRef.current);
-  });
+  //Real time sending message to the chat box
+  const realTime = useSelector((state) => state.isMessageRealTime);
+  const realTimeDispatch = useDispatch();
+
+  //Chat Home display
+  const showChat = useSelector((state) => state.showChat);
 
   // Displaying all chat of the actual conversation
   const getConversation = async (num) => {
     try {
       const res = await axios.get(`get/conversation/${num}`);
       const newMessages = res.data[0].conversation;
+      console.log(newMessages);
+      setMessages(newMessages);
       const header = res.data[0];
       setHeaderMsg(header);
-      setMessages(newMessages);
     } catch (err) {
       console.log(err);
     }
@@ -35,8 +40,13 @@ const Chat = () => {
 
   useEffect(() => {
     getConversation(chatId);
-  }, [chatId, isMsgRealTime]);
+  }, [chatId, realTime]);
 
+  //Storing userName
+  // useEffect(() => {
+  //   const name = prompt("Enter tour name");
+  //   setUserName(name);
+  // }, []);
   //Entering new Message
   const handleChange = (e) => {
     const { value } = e.target;
@@ -50,54 +60,75 @@ const Chat = () => {
       const res = await axios.post(`/new/message/${num}`, {
         message: input,
         timestamp: Date.now(),
+        user: userName,
       });
       setInput("");
-      setRealTime(true);
+      realTimeDispatch({ type: "REALTIME", realTimeMsg: !realTime });
     } catch (err) {
       console.log(err);
     }
   };
+  //Return Statement
 
-  return (
-    <div className="chat">
-      <div className="chat__header">
-        <Avatar src={headerMsg.image} />
-        <div className="chat__headerInfo">
-          <h3>{headerMsg.chatName}</h3>
-          <p>
-            Last Active :
-            {new Date(parseInt(headerMsg.timestamp)).toLocaleTimeString()}{" "}
-          </p>
+  if (showChat) {
+    return (
+      <div className="chat">
+        <WelcomBanner />
+      </div>
+    );
+  } else if (chatId !== null) {
+    return (
+      <div className="chat">
+        <div className="chat__header">
+          {headerMsg.image && <Avatar src={headerMsg.image} />}
+          <div className="chat__headerInfo">
+            <h3>{headerMsg.chatName}</h3>
+            {headerMsg.timestamp && (
+              <p>
+                Last Active:{"  "}
+                {new Date(parseInt(headerMsg.timestamp)).toLocaleString()}{" "}
+              </p>
+            )}
+          </div>
         </div>
-      </div>
 
-      <div className="chat__body">
-        {messages.map((data) => {
-          return (
-            <p className="chat__message" key={data._id}>
-              {/* <span className="chat__name">{messages.name}</span> */}
-              {data.message}
-              <span className="chat__timestamp">
-                {new Date(parseInt(data.timestamp)).toLocaleTimeString()}
-              </span>
-            </p>
-          );
-        })}
+        <div className="chat__body">
+          {messages.map((data) => {
+            return (
+              <p
+                className={
+                  userName === data.user ? "chat__messageUser" : "chat__message"
+                }
+                key={data._id}
+              >
+                <span className="chat__name">{data.user || "Unknown"}</span>
+                <span className="chat__messages">{data.message}</span>
+                <span className="chat__timestamp">
+                  {new Date(parseInt(data.timestamp)).toDateString()}
+                  {", "}
+                  {new Date(parseInt(data.timestamp)).toLocaleTimeString()}
+                </span>
+              </p>
+            );
+          })}
+        </div>
+        {headerMsg.image && (
+          <div className="chat__footer">
+            <form>
+              <input
+                type="text"
+                placeholder="Type a message"
+                value={input}
+                onChange={handleChange}
+              />
+              <button type="submit" onClick={(e) => sendMessage(e, chatId)}>
+                Submit
+              </button>
+            </form>
+          </div>
+        )}
       </div>
-      <div className="chat__footer">
-        <form>
-          <input
-            type="text"
-            placeholder="Type a message"
-            value={input}
-            onChange={handleChange}
-          />
-          <button type="submit" onClick={(e) => sendMessage(e, chatId)}>
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 export default Chat;
