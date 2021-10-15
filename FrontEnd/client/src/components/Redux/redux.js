@@ -3,6 +3,7 @@ const initialState = {
   isMessageRealTime: true,
   isAddRealTime: true,
   showChat: true,
+  userName: "",
 };
 
 export const reducer = (state = initialState, action) => {
@@ -15,6 +16,8 @@ export const reducer = (state = initialState, action) => {
       return { ...state, isMessageRealTime: action.realTimeMsg };
     case "REALTIMEADD":
       return { ...state, isAddRealTime: action.add };
+    case "USERNAME":
+      return { ...state, userName: action.name };
   }
 
   return state;

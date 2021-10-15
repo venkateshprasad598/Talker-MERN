@@ -22,6 +22,7 @@ function User() {
   console.log(addRealTime);
 
   const currentUserName = useSelector((state) => state.userName);
+  console.log(currentUserName);
   const userDispatch = useDispatch();
 
   //Adding images
@@ -56,6 +57,7 @@ function User() {
       const newMessage = await axios.post(`/new/message/${chatId}`, {
         message: welcomeMsg,
         timestamp: Date.now(),
+        user: currentUserName,
       });
       setModel(!isModalOpen);
       addDispatch({ type: "REALTIMEADD", add: !addRealTime });
@@ -145,10 +147,10 @@ function User() {
                 userDispatch({ type: "USERNAME", name: e.target.value })
               }
             />
-            <button type="submit" className="addBtn">
+            <p className="addBtn" onClick={() => setUserName(!isUserName)}>
               Let's Get Started
-            </button>
-            {isEntered && <p>Required!!</p>}
+            </p>
+
             <CloseIcon
               onClick={(e) => {
                 e.preventDefault();

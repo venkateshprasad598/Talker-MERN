@@ -12,7 +12,7 @@ const Chat = () => {
   const [headerMsg, setHeaderMsg] = useState([]);
 
   //UserName
-  const [userName, setUserName] = useState("");
+  const userName = useSelector((state) => state.userName);
 
   //State Management Redux
   const chatId = useSelector((state) => state.chatId);
