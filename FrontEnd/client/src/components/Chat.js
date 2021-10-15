@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Avatar } from "@mui/material";
 import "./Chat.css";
 import axios from "./axios";
@@ -10,7 +10,15 @@ const Chat = () => {
   //State Management Redux
   const [messages, setMessages] = useState([]);
   const [headerMsg, setHeaderMsg] = useState([]);
+  const [isMsgRealTime, setRealTime] = useState(false);
   const chatId = useSelector((state) => state.chatId);
+
+  const inputRef = useRef();
+  //Focusing on the last message
+  useEffect(() => {
+    // inputRef.current.focus();
+    console.log(inputRef.current);
+  });
 
   // Displaying all chat of the actual conversation
   const getConversation = async (num) => {
@@ -27,7 +35,7 @@ const Chat = () => {
 
   useEffect(() => {
     getConversation(chatId);
-  }, [chatId]);
+  }, [chatId, isMsgRealTime]);
 
   //Entering new Message
   const handleChange = (e) => {
@@ -44,10 +52,12 @@ const Chat = () => {
         timestamp: Date.now(),
       });
       setInput("");
+      setRealTime(true);
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <div className="chat">
       <div className="chat__header">
@@ -90,5 +100,4 @@ const Chat = () => {
     </div>
   );
 };
-
 export default Chat;
