@@ -133,7 +133,7 @@ function User() {
         }`}
       >
         <div className="userName__container">
-          <form action="POST">
+          <div>
             <input
               type="text"
               placeholder="Enter Your Name"
@@ -154,7 +154,7 @@ function User() {
               }}
               className="closeBtn"
             />
-          </form>
+          </div>
         </div>
       </div>
 
