@@ -7,7 +7,6 @@ import WelcomBanner from "./WelcomBanner";
 
 const Chat = () => {
   const [input, setInput] = useState("");
-
   const [messages, setMessages] = useState([]);
   const [headerMsg, setHeaderMsg] = useState([]);
 
@@ -23,6 +22,9 @@ const Chat = () => {
 
   //Chat Home display
   const showChat = useSelector((state) => state.showChat);
+
+  //UseRef for focusing latest element
+  const inputRef = useRef();
 
   // Displaying all chat of the actual conversation
   const getConversation = async (num) => {
@@ -44,6 +46,11 @@ const Chat = () => {
     }
   }, [chatId, realTime]);
 
+  useEffect(() => {
+    if (messages.length) {
+      inputRef.current.focus();
+    }
+  });
   //Storing userName
   // useEffect(() => {
   //   const name = prompt("Enter tour name");
@@ -95,9 +102,10 @@ const Chat = () => {
         </div>
 
         <div className="chat__body">
-          {messages.map((data) => {
+          {messages.map((data, index) => {
             return (
               <p
+                ref={inputRef}
                 className={
                   userName === data.user ? "chat__messageUser" : "chat__message"
                 }
@@ -105,12 +113,6 @@ const Chat = () => {
               >
                 <span className="chat__name">{data.user || "Unknown"}</span>
                 <span className="chat__messages">{data.message}</span>
-                {userName === data.user && (
-                  <span>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                  </span>
-                )}
                 <span className="chat__timestamp">
                   {new Date(parseInt(data.timestamp)).toDateString()}
                   {", "}

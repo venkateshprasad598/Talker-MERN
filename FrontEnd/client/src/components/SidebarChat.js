@@ -18,10 +18,7 @@ const SidebarChat = () => {
     try {
       const data = await axios.get("get/conversationList");
       console.log(data.data);
-      // console.log(data.data[0].id);
       const newId = data.data[0].id;
-      //***************************************************** */
-      // chatIdDispatch({ type: "ChangeChatId", newChatId: newId });
       setChats(data.data);
     } catch (err) {
       console.log(err);

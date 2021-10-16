@@ -8,7 +8,6 @@ import SidebarChat from "./SidebarChat";
 import axios from "./axios";
 import { useDispatch, useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
-
 function User() {
   const [isModalOpen, setModel] = useState(false);
   const [isUserName, setUserName] = useState(true);
@@ -23,18 +22,17 @@ function User() {
 
   const currentUserName = useSelector((state) => state.userName);
   console.log(currentUserName);
-  const userDispatch = useDispatch();
 
-  //Adding images
+  //Adding minion images
+  const userDispatch = useDispatch();
   const image = [
-    "https://funzumo.com/wp-content/uploads/2019/06/Best-Funny-Minion-Quotes.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSikt2YTSQ9lQ9m193gW7YirTtypIWmh5NcIrL4jJGwTHQMVc365k_pJJpNoed1ii98Qrs&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvtt6IOe4Gp9Q2lcLdjEKmpreGojqeq4ZYLZSoOgrkyx_v6r6YWpo6JuHT0yW5vRRiA7g&usqp=CAU",
-    "https://saltedcaramel670.files.wordpress.com/2019/04/minion-holding-banana.jpg?w=940&h=627&crop=1",
-    "https://cdn.shopify.com/s/files/1/2284/6393/products/tonies-electronics-tonie-despicable-me-minions-28186416185431.jpg?v=1628453229",
-    "https://i.ebayimg.com/images/g/RNsAAOSwGotWq6ju/s-l300.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwZf6vuPh0QAtebimDXbQwuipikvGiK3QWvgY9IvzehXJBpaAJFNZ2cWG6feKmoCw81g0&usqp=CAU",
-    "https://i.pinimg.com/originals/a9/ec/f2/a9ecf2d6cdf8b364c3edd1bb513229e6.jpg",
+    "https://img1.wallspic.com/originals/1/8/8/7/3/137881-toy-action_figure-figurine-figurines-fictional_character-3840x2160.jpg?attachment=1",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy_hwdQFeYdkCbM5VsayDyCy2M4N2g-nOErKll_WCVQdqASRaijuD7mQH6PIsw5D2FvAY&usqp=CAU",
+    "https://www.wallpaperup.com/uploads/wallpapers/2015/01/10/581774/d14f864ec4e07b7af1a39e4ad75a7426-700.jpg",
+    "https://www.wallpapertip.com/wmimgs/3-30218_4k-png-wallpaper-transparent-background-minion-png.png",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCGEnUodmoE2_8J5opEk_fvPShSjtc208AVWB4JLcnrKUpSErT5iNQgTSRUfB0cPhnF6c&usqp=CAU",
+    "https://i.pinimg.com/originals/73/36/3c/73363cc3cb4370cb74f4dbffc6135d88.png",
+    "https://tigheshill-p.schools.nsw.gov.au/content/dam/doe/sws/schools/t/tigheshill-p/news/2015/6/pantone-minion-color.jpg.thumb.1280.1280.jpg",
   ];
 
   const random = image[Math.floor(Math.random() * image.length)];
@@ -61,6 +59,8 @@ function User() {
       });
       setModel(!isModalOpen);
       addDispatch({ type: "REALTIMEADD", add: !addRealTime });
+      setNewRoom("");
+      setWelcomeMsg("");
     } else {
       // Please enter all the details popup message
       setIsEntered(true);
@@ -74,9 +74,6 @@ function User() {
       <div className="user__header">
         <Avatar src="https://www.seekpng.com/png/detail/306-3069752_minion-waving-nephew-minions-birthday-card.png" />
         <div className="user__headerRight">
-          <IconButton>
-            <SearchIcon />
-          </IconButton>
           <IconButton
             onClick={() => {
               setModel(!isModalOpen);
@@ -135,7 +132,7 @@ function User() {
           isUserName ? "modal__overlay show__modal" : "modal__overlay"
         }`}
       >
-        <div className="modal__container">
+        <div className="userName__container">
           <form action="POST">
             <input
               type="text"
