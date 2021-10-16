@@ -24,7 +24,7 @@ const Chat = () => {
   const showChat = useSelector((state) => state.showChat);
 
   //UseRef for focusing latest element
-  const inputRef = useRef();
+  const scrollRef = useRef();
 
   // Displaying all chat of the actual conversation
   const getConversation = async (num) => {
@@ -41,22 +41,15 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    if (chatId !== null) {
-      getConversation(chatId);
-    }
+    getConversation(chatId);
   }, [chatId, realTime]);
 
+  // Focusing on the current element
+
   useEffect(() => {
-    if (messages.length) {
-      inputRef.current.focus();
-    }
-  });
-  //Storing userName
-  // useEffect(() => {
-  //   const name = prompt("Enter tour name");
-  //   setUserName(name);
-  // }, []);
-  //Entering new Message
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   const handleChange = (e) => {
     const { value } = e.target;
     setInput(value);
@@ -105,7 +98,7 @@ const Chat = () => {
           {messages.map((data, index) => {
             return (
               <p
-                ref={inputRef}
+                ref={scrollRef}
                 className={
                   userName === data.user ? "chat__messageUser" : "chat__message"
                 }
