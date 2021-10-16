@@ -39,7 +39,9 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    getConversation(chatId);
+    if (chatId !== null) {
+      getConversation(chatId);
+    }
   }, [chatId, realTime]);
 
   //Storing userName
@@ -103,6 +105,12 @@ const Chat = () => {
               >
                 <span className="chat__name">{data.user || "Unknown"}</span>
                 <span className="chat__messages">{data.message}</span>
+                {userName === data.user && (
+                  <span>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                  </span>
+                )}
                 <span className="chat__timestamp">
                   {new Date(parseInt(data.timestamp)).toDateString()}
                   {", "}

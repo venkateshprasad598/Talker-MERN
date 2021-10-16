@@ -85,7 +85,6 @@ function User() {
             <AddIcon />
           </IconButton>
           <IconButton
-            PersonIcon
             onClick={() => {
               setUserName(!isUserName);
             }}
