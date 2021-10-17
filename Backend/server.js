@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const messages = require("./Route/route");
 const cors = require("cors");
-const path = require("path")
+const path = require("path");
 
 // App Config
 const app = express();
@@ -22,17 +22,17 @@ mongoose.connect(url).then(() => console.log("Connected to Db..."));
 // Api Routes
 app.use(messages);
 
-
 // ------------------------------Deployment---------------------------------
 
-if(process.env.NODE_ENV === "production"){
+if (process.env.NODE_ENV === "production") {
   //Set Static folder
-  app.use(express.static("FrontEnd/client/build"))
+  app.use(express.static("FrontEnd/client/build"));
 
   app.get("*", (req, res) => {
-res.sendFile(path.resolve(__dirname, "FrontEnd", "client", "build", "index.html"))
-  })
-
+    res.sendFile(
+      path.resolve(__dirname, "FrontEnd", "client", "build", "index.html")
+    );
+  });
 }
 
 // ------------------------------Deployment---------------------------------
