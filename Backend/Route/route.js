@@ -20,6 +20,6 @@ router.post("/new/message/:id", postNewMessage);
 router.get("/get/conversationList", getConversationList);
 router.get("/get/conversation/:id", actualConversation);
 router.get("/get/lastMessage/:id", lastConversation);
-router.get("/get/:convoId/:msgId", editMessages);
+router.delete("/get/:msgId", editMessages);
 
 module.exports = router;
