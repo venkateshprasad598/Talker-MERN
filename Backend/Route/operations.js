@@ -104,4 +104,5 @@ module.exports = {
   getConversationList,
   actualConversation,
   lastConversation,
+  editMessages,
 };
